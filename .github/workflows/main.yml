@@ -10,32 +10,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # خطوة 1: سحب الكود من GitHub
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # خطوة 2: تثبيت Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
+      # خطوة 3: تثبيت مكتبات المشروع
       - name: Install dependencies
         run: npm install
 
+      # خطوة 4: بناء مشروع Vite
       - name: Build Vite project
         run: npm run build
 
+      # خطوة 5: تثبيت Capacitor وإضافة أندرويد
       - name: Install Capacitor & Android
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init "MyApp" "com.example.myapp" --web-dir=dist --yes
+          # إذا لديك ملف capacitor.config.json، لا تحتاج init
+          # npx cap init "MyApp" "com.example.myapp" --web-dir=dist
           npx cap add android
           npx cap copy
 
+      # خطوة 6: بناء APK
       - name: Build APK
         run: |
           cd android
           ./gradlew assembleDebug
 
+      # خطوة 7: رفع ملف APK كـ Artifact
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
