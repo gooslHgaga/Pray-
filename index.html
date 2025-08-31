@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title data-lang-key="appTitle">أوقات الأذان</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="app-container">
+        <header>
+            <h1 class="app-title" data-lang-key="appTitle">أوقات الأذان</h1>
+            <div class="lang-switcher">
+                <button id="lang-en">EN</button>
+                <button id="lang-ar" class="active">ع</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="clock-container">
+                <div class="analog-clock">
+                    <div class="hand hour-hand"></div>
+                    <div class="hand min-hand"></div>
+                    <div class="hand second-hand"></div>
+                    <div class="center-dot"></div>
+                </div>
+            </div>
+            <div id="date-container">
+                <p id="gregorian-date"></p>
+                <p id="hijri-date"></p>
+            </div>
+
+            <div id="prayer-times-container">
+                <!-- Prayer cards will be dynamically populated, but here's the structure -->
+                <div class="prayer-card" data-prayer="Fajr">
+                    <div class="prayer-info">
+                        <span class="prayer-name" data-lang-key="fajr">الفجر</span>
+                        <span class="prayer-time">04:30</span>
+                    </div>
+                    <button class="adhkar-btn" aria-label="أذكار بعد صلاة الفجر" data-lang-key-aria="adhkarAria" data-prayer-name="fajr">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5v2H5a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2.2a5.5 5.5 0 0 0 9.6 0H19a1 1 0 0 0 1-1V10a1 1 0 0 0-1-1h-2V7a5 5 0 0 0-5-5Z"/><path d="M8 14v5a4 4 0 0 0 8 0v-5"/></svg>
+                    </button>
+                </div>
+                <div class="prayer-card" data-prayer="Dhuhr">
+                    <div class="prayer-info">
+                        <span class="prayer-name" data-lang-key="dhuhr">الظهر</span>
+                        <span class="prayer-time">12:30</span>
+                    </div>
+                    <button class="adhkar-btn" aria-label="أذكار بعد صلاة الظهر" data-lang-key-aria="adhkarAria" data-prayer-name="dhuhr">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5v2H5a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2.2a5.5 5.5 0 0 0 9.6 0H19a1 1 0 0 0 1-1V10a1 1 0 0 0-1-1h-2V7a5 5 0 0 0-5-5Z"/><path d="M8 14v5a4 4 0 0 0 8 0v-5"/></svg>
+                    </button>
+                </div>
+                <div class="prayer-card" data-prayer="Asr">
+                    <div class="prayer-info">
+                        <span class="prayer-name" data-lang-key="asr">العصر</span>
+                        <span class="prayer-time">16:00</span>
+                    </div>
+                     <button class="adhkar-btn" aria-label="أذكار بعد صلاة العصر" data-lang-key-aria="adhkarAria" data-prayer-name="asr">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5v2H5a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2.2a5.5 5.5 0 0 0 9.6 0H19a1 1 0 0 0 1-1V10a1 1 0 0 0-1-1h-2V7a5 5 0 0 0-5-5Z"/><path d="M8 14v5a4 4 0 0 0 8 0v-5"/></svg>
+                    </button>
+                </div>
+                <div class="prayer-card" data-prayer="Maghrib">
+                    <div class="prayer-info">
+                        <span class="prayer-name" data-lang-key="maghrib">المغرب</span>
+                        <span class="prayer-time">18:45</span>
+                    </div>
+                     <button class="adhkar-btn" aria-label="أذكار بعد صلاة المغرب" data-lang-key-aria="adhkarAria" data-prayer-name="maghrib">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5v2H5a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2.2a5.5 5.5 0 0 0 9.6 0H19a1 1 0 0 0 1-1V10a1 1 0 0 0-1-1h-2V7a5 5 0 0 0-5-5Z"/><path d="M8 14v5a4 4 0 0 0 8 0v-5"/></svg>
+                    </button>
+                </div>
+                <div class="prayer-card" data-prayer="Isha">
+                    <div class="prayer-info">
+                        <span class="prayer-name" data-lang-key="isha">العشاء</span>
+                        <span class="prayer-time">20:15</span>
+                    </div>
+                    <button class="adhkar-btn" aria-label="أذكار بعد صلاة العشاء" data-lang-key-aria="adhkarAria" data-prayer-name="isha">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5v2H5a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2.2a5.5 5.5 0 0 0 9.6 0H19a1 1 0 0 0 1-1V10a1 1 0 0 0-1-1h-2V7a5 5 0 0 0-5-5Z"/><path d="M8 14v5a4 4 0 0 0 8 0v-5"/></svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="controls-container">
+                 <div class="control-item">
+                     <span data-lang-key="alerts">تنبيهات الأذان</span>
+                     <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                 <div class="control-item">
+                     <button id="tone-selector-btn" class="control-btn" data-lang-key="chooseTone">اختر نغمة</button>
+                     <input type="file" id="tone-file-input" accept="audio/*" hidden>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="index.tsx"></script>
+</body>
+</html>
