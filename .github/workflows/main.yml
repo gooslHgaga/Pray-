@@ -2,58 +2,46 @@ name: Build APK
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      # 1️⃣ سحب الكود
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # 2️⃣ تثبيت Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # 3️⃣ تثبيت الإعتماديات
-      - name: Install dependencies
-        run: npm install
-
-      # 4️⃣ بناء Vite
-      - name: Build Vite project
-        run: npm run build
-
-      # 5️⃣ إضافة Android platform
-      - name: Install Capacitor & Android
+      - name: Install & build
         run: |
-          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npm ci
+          npm run build
           npx cap add android
           npx cap copy
 
-      # 6️⃣ تثبيت Java 17 (إصلاح المشكلة)
       - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      # 7️⃣ منح صلاحية التنفيذ
+      - name: Force Java 17 in Gradle
+        run: |
+          echo "org.gradle.jvmargs=-Xmx2048m" >> android/gradle.properties
+          echo "org.gradle.java.home=$JAVA_HOME" >> android/gradle.properties
+
       - name: Make gradlew executable
         run: chmod +x android/gradlew
 
-      # 8️⃣ بناء APK
       - name: Build APK
         run: |
           cd android
           ./gradlew assembleDebug
 
-      # 9️⃣ رفع APK
-      - name: Upload APK artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug.apk
