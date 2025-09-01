@@ -1,7 +1,7 @@
 import os
 
 files = {
-    # gradle wrapper
+    # gradle wrapper (سكربتات التشغيل)
     "android/gradlew": """#!/bin/sh
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 exec "$DIR/gradle/wrapper/gradle-wrapper.jar" "$@"
@@ -62,6 +62,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
 }
 """,
@@ -77,27 +78,43 @@ dependencies {
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
     </application>
-
 </manifest>
 """,
 
-    # MainActivity
+    # MainActivity.java (Java عادي مع TextView)
     "android/app/src/main/java/com/example/myapp/MainActivity.java": """package com.example.myapp;
 
-import com.getcapacitor.BridgeActivity;
+import android.os.Bundle;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends BridgeActivity {}
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        TextView tv = new TextView(this);
+        tv.setText("Hello, Android Project Created Manually!");
+        tv.setTextSize(20);
+        setContentView(tv);
+    }
+}
 """
 }
 
@@ -107,4 +124,4 @@ for path, content in files.items():
     with open(path, "w") as f:
         f.write(content)
 
-print("✅ تم إنشاء مجلد android/ بالكامل (مع gradle wrapper + manifest + mainactivity)!")
+print("✅ تم إنشاء مشروع Android أساسي يدويًا داخل مجلد android/")
