@@ -7,8 +7,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -16,9 +18,9 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install # أو npm ci إذا كان لديك package-lock.json
+        run: npm install
 
-      - name: Build
+      - name: Build web assets
         run: npm run build
 
       - name: Add Android platform
@@ -27,15 +29,12 @@ jobs:
           npx cap add android
           npx cap copy
 
-      - name: Setup JDK 17
+      # ✅ استخدام Java 21 لحل مشكلة Gradle
+      - name: Setup JDK 21
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
-
-      - name: Force Java 17
-        run: |
-          echo "org.gradle.java.home=$JAVA_HOME" >> android/gradle.properties
+          java-version: '21'
 
       - name: Make gradlew executable
         run: chmod +x android/gradlew
