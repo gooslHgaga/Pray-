@@ -32,18 +32,27 @@ jobs:
       - name: Install Capacitor & Android
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          # إذا لديك ملف capacitor.config.json، لا تحتاج init
-          # npx cap init "MyApp" "com.example.myapp" --web-dir=dist
           npx cap add android
           npx cap copy
 
-      # خطوة 6: بناء APK
+      # خطوة 6: تثبيت JDK 17 (إصلاح المشكلة)
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # خطوة 7: منح صلاحية التنفيذ لـ gradlew
+      - name: Make gradlew executable
+        run: chmod +x android/gradlew
+
+      # خطوة 8: بناء APK
       - name: Build APK
         run: |
           cd android
           ./gradlew assembleDebug
 
-      # خطوة 7: رفع ملف APK كـ Artifact
+      # خطوة 9: رفع ملف APK كـ Artifact
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
