@@ -10,49 +10,49 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # خطوة 1: سحب الكود من GitHub
+      # 1️⃣ سحب الكود
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # خطوة 2: تثبيت Node.js
+      # 2️⃣ تثبيت Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # خطوة 3: تثبيت مكتبات المشروع
+      # 3️⃣ تثبيت الإعتماديات
       - name: Install dependencies
         run: npm install
 
-      # خطوة 4: بناء مشروع Vite
+      # 4️⃣ بناء Vite
       - name: Build Vite project
         run: npm run build
 
-      # خطوة 5: تثبيت Capacitor وإضافة أندرويد
+      # 5️⃣ إضافة Android platform
       - name: Install Capacitor & Android
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
           npx cap add android
           npx cap copy
 
-      # خطوة 6: تثبيت JDK 17 (إصلاح المشكلة)
+      # 6️⃣ تثبيت Java 17 (إصلاح المشكلة)
       - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      # خطوة 7: منح صلاحية التنفيذ لـ gradlew
+      # 7️⃣ منح صلاحية التنفيذ
       - name: Make gradlew executable
         run: chmod +x android/gradlew
 
-      # خطوة 8: بناء APK
+      # 8️⃣ بناء APK
       - name: Build APK
         run: |
           cd android
           ./gradlew assembleDebug
 
-      # خطوة 9: رفع ملف APK كـ Artifact
+      # 9️⃣ رفع APK
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
