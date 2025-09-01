@@ -15,10 +15,15 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install & build
+      - name: Install dependencies
+        run: npm install # أو npm ci إذا كان لديك package-lock.json
+
+      - name: Build
+        run: npm run build
+
+      - name: Add Android platform
         run: |
-          npm ci
-          npm run build
+          npm install @capacitor/core @capacitor/cli @capacitor/android
           npx cap add android
           npx cap copy
 
@@ -28,9 +33,8 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Force Java 17 in Gradle
+      - name: Force Java 17
         run: |
-          echo "org.gradle.jvmargs=-Xmx2048m" >> android/gradle.properties
           echo "org.gradle.java.home=$JAVA_HOME" >> android/gradle.properties
 
       - name: Make gradlew executable
